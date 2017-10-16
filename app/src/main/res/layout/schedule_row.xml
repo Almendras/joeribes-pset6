@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- counter -->
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:text="1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <!-- Grand Prix name -->
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/counter"
+        android:layout_alignBaseline="@+id/counter"
+        android:textSize="17dp"
+        android:text="United States Grand Prix"/>
+
+    <!-- Time -->
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/date"
+        android:layout_alignBaseline="@+id/counter"
+        android:textSize="17dp"
+        android:layout_marginRight="8dp"
+        android:text="05:00 Z"
+        />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_alignBaseline="@+id/counter"
+        android:textSize="17dp"
+        android:text="03-26"
+        />
+
+</RelativeLayout>

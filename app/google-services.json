@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "890114043657",
+    "firebase_url": "https://joeribes-pset6-851b8.firebaseio.com",
+    "project_id": "joeribes-pset6-851b8",
+    "storage_bucket": "joeribes-pset6-851b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890114043657:android:277491e37d94a8a7",
+        "android_client_info": {
+          "package_name": "com.example.joeribes.joeribes_pset6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890114043657-2gh8r5h1o0f8arln6roqh0fp2j3jp1ut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joeribes.joeribes_pset6",
+            "certificate_hash": "57998aa13da6ad9f8658b1ce91e99d5255fe00ea"
+          }
+        },
+        {
+          "client_id": "890114043657-smnr1emoqfbe462fkf56gp88jngln1o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDjm4I1i0DL2zzC0kYm40DtlLGhpiyVKk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890114043657-smnr1emoqfbe462fkf56gp88jngln1o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
