@@ -25,7 +25,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".DriverResultsActivity" />
         <activity android:name=".RaceScheduleActivity" />
-        <activity android:name=".StandingsActivity"></activity>
+        <activity android:name=".StandingsActivity" />
+        <activity android:name=".DriverActivity"></activity>
     </application>
 
 </manifest>

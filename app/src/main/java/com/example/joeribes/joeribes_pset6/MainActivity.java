@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         asyncTask.execute(webURL);
     }
 
-    public void startIntentDrivers(DriverResults[] driverResults) {
+    public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, DriverResultsActivity.class);
         driverResultsIntent.putExtra("driverResults", driverResults);
         this.startActivity(driverResultsIntent);
@@ -158,6 +158,18 @@ public class MainActivity extends AppCompatActivity {
         Intent standingsIntent = new Intent(this, StandingsActivity.class);
         standingsIntent.putExtra("standings", standings);
         this.startActivity(standingsIntent);
+    }
+
+    public void apiSearchDrivers(View view) {
+        String webURL = "http://ergast.com/api/f1/current/drivers.json";
+        DriverAsyncTask asyncTask = new DriverAsyncTask(this);
+        asyncTask.execute(webURL);
+    }
+
+    public void startIntentDrivers(Driver[] driver) {
+        Intent driversIntent = new Intent(this, DriverActivity.class);
+        driversIntent.putExtra("drivers", driver);
+        this.startActivity(driversIntent);
     }
 
 

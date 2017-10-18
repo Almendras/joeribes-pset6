@@ -62,10 +62,20 @@
         android:id="@+id/Standings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/overView"
-        android:layout_below="@+id/schedule"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="11dp"
         android:onClick="apiSearchStandings"
-        android:text="Standings" />
+        android:text="Standings"
+        android:layout_below="@+id/schedule"
+        android:layout_alignEnd="@+id/overView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/schedule"
+        android:layout_below="@+id/Standings"
+        android:layout_marginTop="17dp"
+        android:onClick="apiSearchDrivers"
+        android:text="Drivers" />
 
 </RelativeLayout>

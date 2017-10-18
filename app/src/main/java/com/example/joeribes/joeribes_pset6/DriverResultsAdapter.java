@@ -51,6 +51,4 @@ public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
 
         return customView;
     }
-
-
 }

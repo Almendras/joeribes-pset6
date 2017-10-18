@@ -3,10 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <!-- counter -->
     <TextView
-        android:id="@+id/counter"
+        android:id="@+id/driverNumber"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:text="1"
@@ -21,38 +20,17 @@
         android:textSize="12sp"
         android:textStyle="bold" />
 
-    <!-- Driver & Constructor -->
+    <!-- Driver & DriverCode-->
     <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/counter"
-        android:layout_alignBaseline="@+id/counter"
+        android:layout_toRightOf="@+id/driverNumber"
+        android:layout_alignBaseline="@+id/driverNumber"
         android:textSize="17dp"
-        android:text="Lewis Hamilton - Mercedes"/>
+        android:text="Lewis Hamilton - HAM"/>
 
-    <!-- Points -->
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/wins"
-        android:layout_alignBaseline="@+id/counter"
-        android:textSize="17dp"
-        android:layout_marginRight="8dp"
-        android:text="306"
-        />
 
-    <!-- Wins -->
-    <TextView
-        android:id="@+id/wins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
-        android:layout_alignBaseline="@+id/counter"
-        android:textSize="17dp"
-        android:text="8"
-        />
+
 
 </RelativeLayout>
