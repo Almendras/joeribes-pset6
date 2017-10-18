@@ -12,12 +12,12 @@ import org.json.JSONObject;
 
 public class StandingsAsyncTask extends AsyncTask<String, Integer, String> {
     Context context;
-    MainActivity mainAct;
+    OverviewActivity overAct;
     Standings[] standing;
 
-    public StandingsAsyncTask(MainActivity main) {
-        this.mainAct = main;
-        this.context = this.mainAct.getApplicationContext();
+    public StandingsAsyncTask(OverviewActivity main) {
+        this.overAct = main;
+        this.context = this.overAct.getApplicationContext();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class StandingsAsyncTask extends AsyncTask<String, Integer, String> {
                 e.printStackTrace();
             }
 
-            this.mainAct.startIntentStandings(standing);
+            this.overAct.startIntentStandings(standing);
         }
     }
 }

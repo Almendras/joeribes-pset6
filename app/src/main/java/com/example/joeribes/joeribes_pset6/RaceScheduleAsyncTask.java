@@ -12,12 +12,12 @@ import org.json.JSONObject;
 
 public class RaceScheduleAsyncTask extends AsyncTask<String, Integer, String> {
     Context context;
-    MainActivity mainAct;
+    OverviewActivity overAct;
     RaceSchedule[] raceSchedule;
 
-    public RaceScheduleAsyncTask(MainActivity main) {
-        this.mainAct = main;
-        this.context = this.mainAct.getApplicationContext();
+    public RaceScheduleAsyncTask(OverviewActivity main) {
+        this.overAct = main;
+        this.context = this.overAct.getApplicationContext();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RaceScheduleAsyncTask extends AsyncTask<String, Integer, String> {
                 e.printStackTrace();
             }
 
-            this.mainAct.startIntentRaceSchedule(raceSchedule);
+            this.overAct.startIntentRaceSchedule(raceSchedule);
         }
     }
 }

@@ -12,12 +12,12 @@ import org.json.JSONObject;
 
 public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
     Context context;
-    MainActivity mainAct;
+    OverviewActivity overAct;
     DriverResults[] driverResults;
 
-    public DriverResultsAsyncTask(MainActivity main) {
-        this.mainAct = main;
-        this.context = this.mainAct.getApplicationContext();
+    public DriverResultsAsyncTask(OverviewActivity main) {
+        this.overAct = main;
+        this.context = this.overAct.getApplicationContext();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
                 e.printStackTrace();
             }
 
-            this.mainAct.startIntentDriverResults(driverResults);
+            this.overAct.startIntentDriverResults(driverResults);
         }
     }
 }

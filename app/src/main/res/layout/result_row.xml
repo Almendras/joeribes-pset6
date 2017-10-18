@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/counter"
         android:textSize="17dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:text="1:27:31.194"
         android:layout_alignParentRight="true"
         />

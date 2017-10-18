@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
+/*
     public void apiSearch(View view) {
         String webURL = "http://ergast.com/api/f1/current/last/results.json";
         DriverResultsAsyncTask asyncTask = new DriverResultsAsyncTask(this);
@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         driversIntent.putExtra("drivers", driver);
         this.startActivity(driversIntent);
     }
+*/
 
 
 

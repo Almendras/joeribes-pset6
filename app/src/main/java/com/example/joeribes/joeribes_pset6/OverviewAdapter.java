@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 
 
-public class OverviewAdapter extends ArrayAdapter<String> {
+public class OverviewAdapter extends ArrayAdapter<Customization> {
     Context customContext;
 
-    public OverviewAdapter(Context context, ArrayList<String> activities) {
+    public OverviewAdapter(Context context, ArrayList<Customization> activities) {
         super(context, R.layout.overview_row , activities);
         customContext = context;
     }
@@ -29,14 +29,16 @@ public class OverviewAdapter extends ArrayAdapter<String> {
             customView = myInflater.inflate(R.layout.overview_row, parent, false);
         }
 
+        String item = getItem(position).getItem();
+        String season = getItem(position).getSeason();
 
 
-        String item = getItem(position);
+        final TextView itemView = (TextView) customView.findViewById(R.id.itemView);
+        final TextView seasonView = (TextView) customView.findViewById(R.id.seasonView);
 
+        itemView.setText(item);
+        seasonView.setText(season);
 
-        final TextView myText = (TextView) customView.findViewById(R.id.overviewTextView);
-
-        myText.setText(item);
         return customView;
     }
 
