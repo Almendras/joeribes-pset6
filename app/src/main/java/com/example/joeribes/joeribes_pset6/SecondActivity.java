@@ -70,42 +70,19 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void addToDB(View view) {
-        /*
-        // Get values from editTexts
-        EditText et1 = (EditText) findViewById(R.id.editText);
-        EditText et2 = (EditText) findViewById(R.id.editText2);
-
-        String name = et1.getText().toString();
-        String color = et2.getText().toString();
-
-        // Add an object to the database
-        Formula1 aFormula1 = new Formula1(name, color);
-
-
-        mDatabase.child(user.getUid()).setValue(aFormula1);
-        */
-
         Customization customItem1 = new Customization("Driver Standings", "2017");
         Customization customItem2 = new Customization("Race Results", "2017");
         Customization customItem3 = new Customization("Race Schedule", "2017");
-        Customization customItem4 = new Customization("Driver information", "2017");
+        Customization customItem4 = new Customization("Driver Information", "2017");
 
 
         HashMap<String, Customization> map = new HashMap<>();
         map.put("Driver Standings", customItem1);
         map.put("Race Results", customItem2);
         map.put("Race Schedule", customItem3);
-        map.put("Driver information", customItem4);
+        map.put("Driver Information", customItem4);
 
         mDatabase.child(user.getUid()).setValue(map);
-
-
-        //mDatabase.child(user.getUid()).setValue(customItem1);
-        //mDatabase.child(user.getUid()).setValue(customItem2);
-        //mDatabase.child(user.getUid()).setValue(customItem3);
-        //mDatabase.child(user.getUid()).setValue(customItem4);
-
-
     }
 
     public void getFromDB(View view) {

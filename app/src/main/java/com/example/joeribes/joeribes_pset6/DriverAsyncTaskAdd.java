@@ -8,14 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DriverAsyncTask extends AsyncTask<String, Integer, String> {
+public class DriverAsyncTaskAdd extends AsyncTask<String, Integer, String> {
     Context context;
-    OverviewActivity overAct;
+    AddItemActivity addItemAct;
     Driver[] driver;
 
-    public DriverAsyncTask(OverviewActivity over) {
-        this.overAct = over;
-        this.context = this.overAct.getApplicationContext();
+    public DriverAsyncTaskAdd (AddItemActivity addItem) {
+        this.addItemAct = addItem;
+        this.context = this.addItemAct.getApplicationContext();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DriverAsyncTask extends AsyncTask<String, Integer, String> {
                 e.printStackTrace();
             }
 
-            this.overAct.startIntentDrivers(driver);
+            this.addItemAct.startIntentDrivers(driver);
         }
     }
 }

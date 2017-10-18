@@ -4,78 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backGround"
     tools:context="com.example.joeribes.joeribes_pset6.MainActivity">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        app:backgroundTint="@color/colorAccent" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logInUser"
+        android:layout_alignEnd="@+id/logInUser"
+        android:layout_alignStart="@+id/logInUser"
+        android:layout_marginBottom="31dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        app:backgroundTint="@color/colorAccent" />
 
     <Button
         android:id="@+id/createUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_alignBaseline="@+id/skipButton"
+        android:layout_alignBottom="@+id/skipButton"
+        android:layout_alignStart="@+id/logInUser"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="55dp"
         android:onClick="createUser"
-        android:text="Create user"
+        android:text="Sign up"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="230dp" />
 
+    <!-- Login Button -->
     <Button
         android:id="@+id/logInUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/createUser"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorAccent"
         android:onClick="logInUser"
-        android:text="Log in" />
+        android:text="Log in"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:layout_above="@+id/createUser"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:id="@+id/overView"
+        android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/logInUser"
-        android:layout_below="@+id/logInUser"
-        android:layout_marginTop="52dp"
-        android:onClick="overView"
-        android:text="Overview" />
+        android:layout_alignEnd="@+id/logInUser"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="45dp"
+        android:onClick="skipButton"
+        android:text="Skip" />
 
-    <Button
-        android:id="@+id/apiSearch"
+    <ImageView
+        android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/overView"
+        app:srcCompat="@drawable/formula"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:onClick="apiSearch"
-        android:text="Results" />
-
-    <Button
-        android:id="@+id/schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/apiSearch"
-        android:layout_below="@+id/apiSearch"
-        android:layout_marginTop="20dp"
-        android:onClick="apiSearchRaceSchedule"
-        android:text="Schedule" />
-
-    <Button
-        android:id="@+id/Standings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:onClick="apiSearchStandings"
-        android:text="Standings"
-        android:layout_below="@+id/schedule"
-        android:layout_alignEnd="@+id/overView" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/schedule"
-        android:layout_below="@+id/Standings"
-        android:layout_marginTop="17dp"
-        android:onClick="apiSearchDrivers"
-        android:text="Drivers" />
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>

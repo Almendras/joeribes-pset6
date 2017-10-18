@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,7 @@ public class OverviewActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
+    NavigationView navigationView;
 
 
     @Override
@@ -51,14 +53,6 @@ public class OverviewActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,37 +60,19 @@ public class OverviewActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        /*
-        testArray = new ArrayList<String>();
-        testArray.add("Standings -  Season 2017");
-        testArray.add("Race results - Season 2017");
-        testArray.add("Race schedule - Season 2017");
-        testArray.add("Driver information - Season 2017");
-        */
-
         mAuth = FirebaseAuth.getInstance();
         setListener();
 
         // Initialize database reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        /*
-        Customization customItem1 = new Customization("Driver Standings", "2017");
-        Customization customItem2 = new Customization("Race Results", "2017");
-        Customization customItem3 = new Customization("Race Schedule", "2017");
-        Customization customItem4 = new Customization("Driver information", "2017");
-        */
-
         customItems = new ArrayList<>();
-        //customItems.add(customItem1);
-        //customItems.add(customItem2);
-        //customItems.add(customItem3);
-        //customItems.add(customItem4);
 
         getCustoms();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
 
     }
 
@@ -104,10 +80,7 @@ public class OverviewActivity extends AppCompatActivity
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get out object out od the database
-
-                // mDatabase.child(user.getUid()).setValue(map);
-
+                // Retrieve the object from the database
                 DataSnapshot userSnapShot = dataSnapshot.child(user.getUid());
                 Iterable<DataSnapshot> userChildren = userSnapShot.getChildren();
 
@@ -116,6 +89,9 @@ public class OverviewActivity extends AppCompatActivity
                     customItems.add(c);
                 }
 
+                View headerView = navigationView.inflateHeaderView(R.layout.nav_header_overview);
+                TextView usernameOver = headerView.findViewById(R.id.usernameOverview);
+                usernameOver.setText(user.getEmail());
                 showAdapter();
 
             }
@@ -130,6 +106,7 @@ public class OverviewActivity extends AppCompatActivity
         mDatabase.addValueEventListener(postListener);
 
     }
+
 
     private void setListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -189,6 +166,9 @@ public class OverviewActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent addItemIntent = new Intent(getBaseContext(), AddItemActivity.class);
+            startActivity(addItemIntent);
+            finish();
             return true;
         }
 
@@ -201,17 +181,18 @@ public class OverviewActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_profile_list) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
 
-        } else if (id == R.id.nav_send) {
+            Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(mainIntent);
+            finish();
 
         }
 

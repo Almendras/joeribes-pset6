@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,43 +14,40 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class CreateUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    String email;
-    String password;
+    private DatabaseReference mDatabase;
+    private FirebaseUser user;
+    String email, password;
     EditText emailInput;
     EditText passwordInput;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_user);
 
         mAuth = FirebaseAuth.getInstance();
         setListener();
 
-        emailInput = (EditText) findViewById(R.id.username);
-        passwordInput = (EditText) findViewById(R.id.password);
-
-        email = emailInput.getText().toString();
-        password = passwordInput.getText().toString();
+        // Initialize database reference
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void setListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.d("signed in", "onAuthStateChanged:signed_in:" + user.getUid());
-
-                    Intent overviewIntent = new Intent(getBaseContext(), OverviewActivity.class);
-                    startActivity(overviewIntent);
-                    finish();
                 } else {
                     // User is signed out
                     Log.d("signed out", "onAuthStateChanged:signed_out");
@@ -77,42 +72,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createUser(View view) {
-        Intent createUserIntent = new Intent(getBaseContext(), CreateUserActivity.class);
-        startActivity(createUserIntent);
-        finish();
-    }
 
-    public void skipButton(View view) {
-        Intent overviewIntent = new Intent(getBaseContext(), OverviewActivity.class);
-        startActivity(overviewIntent);
-        finish();
-
-    }
-
-    public void logInUser(View view) {
         emailInput = (EditText) findViewById(R.id.username);
         passwordInput = (EditText) findViewById(R.id.password);
 
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        if(password.length() < 6) {
+            Toast.makeText(CreateUserActivity.this, "Password is too short, it needs to be at least 6 characters.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("sign in", "signInWithEmail:onComplete:" + task.isSuccessful());
-
+                        Log.d("create user", "createUserWithEmail:onComplete:" + task.isSuccessful());
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w("email", "signInWithEmail:failed", task.getException());
-                            Toast.makeText(MainActivity.this, "Valid authentication credentials were not provided.",
+                            Toast.makeText(CreateUserActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Logged in user: " + email ,
+                        }
+                        else {
+                            Toast.makeText(CreateUserActivity.this, "Created user: " + email ,
                                     Toast.LENGTH_SHORT).show();
 
+                            addToDB();
                             Intent overviewIntent = new Intent(getBaseContext(), OverviewActivity.class);
                             startActivity(overviewIntent);
                             finish();
@@ -121,5 +110,19 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public void addToDB() {
+        Customization customItem1 = new Customization("Driver Standings", "2017");
+        Customization customItem2 = new Customization("Race Results", "2017");
+        Customization customItem3 = new Customization("Race Schedule", "2017");
+        Customization customItem4 = new Customization("Driver Information", "2017");
 
+
+        HashMap<String, Customization> map = new HashMap<>();
+        map.put("Driver Standings", customItem1);
+        map.put("Race Results", customItem2);
+        map.put("Race Schedule", customItem3);
+        map.put("Driver Information", customItem4);
+
+        mDatabase.child(user.getUid()).setValue(map);
+    }
 }

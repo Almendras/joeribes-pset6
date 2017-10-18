@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround"
+    tools:context="com.example.joeribes.joeribes_pset6.CreateUserActivity">
+
+
+    <Button
+        android:id="@+id/createUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorAccent"
+        android:onClick="createUser"
+        android:text="Create user"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="203dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        app:backgroundTint="@color/colorAccent" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_marginBottom="27dp"
+        android:layout_above="@+id/createUser"
+        android:layout_alignStart="@+id/createUser"
+        android:layout_alignEnd="@+id/createUser" />
+
+
+
+
+
+</RelativeLayout>
