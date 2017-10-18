@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startIntentDrivers(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, DriverResultsActivity.class);
-
         driverResultsIntent.putExtra("driverResults", driverResults);
         this.startActivity(driverResultsIntent);
     }
@@ -144,11 +143,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, RaceScheduleActivity.class);
-
         raceScheduleIntent.putExtra("raceSchedule", raceSchedules);
-
         this.startActivity(raceScheduleIntent);
     }
+
+
+    public void apiSearchStandings(View view) {
+        String webURL = "http://ergast.com/api/f1/current/driverStandings.json";
+        StandingsAsyncTask asyncTask = new StandingsAsyncTask(this);
+        asyncTask.execute(webURL);
+    }
+
+    public void startIntentStandings(Standings[] standings) {
+        Intent standingsIntent = new Intent(this, StandingsActivity.class);
+        standingsIntent.putExtra("standings", standings);
+        this.startActivity(standingsIntent);
+    }
+
 
 
 

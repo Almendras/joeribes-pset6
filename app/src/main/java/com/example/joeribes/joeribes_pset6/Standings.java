@@ -12,6 +12,7 @@ public class Standings implements Serializable {
         this.season = season;
         this.round = round;
         this.position = position;
+        this.points = points;
         this.wins = wins;
         this.driver = driver;
         this.constructor = constructor;
@@ -25,6 +26,11 @@ public class Standings implements Serializable {
     // Returns the rounds
     public String getRound() {
         return round;
+    }
+
+    // Returns the position of the driver
+    public String getPosition() {
+        return position;
     }
 
     // Returns the amount of points

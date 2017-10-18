@@ -58,4 +58,14 @@
         android:onClick="apiSearchRaceSchedule"
         android:text="Schedule" />
 
+    <Button
+        android:id="@+id/Standings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/overView"
+        android:layout_below="@+id/schedule"
+        android:layout_marginTop="30dp"
+        android:onClick="apiSearchStandings"
+        android:text="Standings" />
+
 </RelativeLayout>
