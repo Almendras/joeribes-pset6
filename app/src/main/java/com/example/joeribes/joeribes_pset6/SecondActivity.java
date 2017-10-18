@@ -21,6 +21,7 @@ public class SecondActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.d("signed in", "onAuthStateChanged:signed_in:" + user.getUid());
@@ -77,7 +78,7 @@ public class SecondActivity extends AppCompatActivity {
         // Add an object to the database
         Formula1 aFormula1 = new Formula1(name, color);
 
-        mDatabase.child("formula1cars").child("formula1").setValue(aFormula1);
+        mDatabase.child(user.getUid()).setValue(aFormula1);
     }
 
     public void getFromDB(View view) {
@@ -86,7 +87,7 @@ public class SecondActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get out object out od the database
 
-                Formula1 aFormula1 = dataSnapshot.child("formula1cars").child("formula1").getValue(Formula1.class);
+                Formula1 aFormula1 = dataSnapshot.child(user.getUid()).getValue(Formula1.class);
 
                 Toast.makeText(SecondActivity.this, aFormula1.name,
                         Toast.LENGTH_SHORT).show();

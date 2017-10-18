@@ -122,4 +122,34 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+    public void apiSearch(View view) {
+        String webURL = "http://ergast.com/api/f1/current/last/results.json";
+        DriverResultsAsyncTask asyncTask = new DriverResultsAsyncTask(this);
+        asyncTask.execute(webURL);
+    }
+
+    public void startIntentDrivers(DriverResults[] driverResults) {
+        Intent driverResultsIntent = new Intent(this, DriverResultsActivity.class);
+
+        driverResultsIntent.putExtra("driverResults", driverResults);
+        this.startActivity(driverResultsIntent);
+    }
+
+    public void apiSearchRaceSchedule(View view) {
+        String webURL = "http://ergast.com/api/f1/current.json";
+        RaceScheduleAsyncTask asyncTask = new RaceScheduleAsyncTask(this);
+        asyncTask.execute(webURL);
+    }
+
+    public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
+        Intent raceScheduleIntent = new Intent(this, RaceScheduleActivity.class);
+
+        raceScheduleIntent.putExtra("raceSchedule", raceSchedules);
+
+        this.startActivity(raceScheduleIntent);
+    }
+
+
+
 }

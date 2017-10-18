@@ -38,4 +38,24 @@
         android:onClick="overView"
         android:text="Overview" />
 
+    <Button
+        android:id="@+id/apiSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:onClick="apiSearch"
+        android:text="Results" />
+
+    <Button
+        android:id="@+id/schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/apiSearch"
+        android:layout_below="@+id/apiSearch"
+        android:layout_marginTop="20dp"
+        android:onClick="apiSearchRaceSchedule"
+        android:text="Schedule" />
+
 </RelativeLayout>
