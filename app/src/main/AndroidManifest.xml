@@ -26,7 +26,8 @@
         <activity android:name=".DriverResultsActivity" />
         <activity android:name=".RaceScheduleActivity" />
         <activity android:name=".StandingsActivity" />
-        <activity android:name=".DriverActivity"></activity>
+        <activity android:name=".DriverActivity" />
+        <activity android:name=".DriverDescriptionActivity"></activity>
     </application>
 
 </manifest>

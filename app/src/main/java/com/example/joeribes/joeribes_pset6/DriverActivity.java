@@ -1,7 +1,10 @@
 package com.example.joeribes.joeribes_pset6;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -33,6 +36,22 @@ public class DriverActivity extends AppCompatActivity {
         assert driverView != null;
 
         driverView.setAdapter(myAdapter);
+
+        driverView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        Driver driverDescription = drivers.get(position);
+
+                        Intent driversIntent = new Intent(getApplicationContext(), DriverDescriptionActivity.class);
+                        driversIntent.putExtra("driverDescription", driverDescription);
+                        startActivity(driversIntent);
+
+                    }
+                }
+        );
+
     }
 }
 
