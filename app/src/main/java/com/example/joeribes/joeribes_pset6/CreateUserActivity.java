@@ -72,28 +72,35 @@ public class CreateUserActivity extends AppCompatActivity {
         }
     }
 
-    public void createUser(View view) {
-
+    // This will handle the textViews
+    public void textViewsHandler() {
         emailInput = (EditText) findViewById(R.id.username);
         passwordInput = (EditText) findViewById(R.id.password);
 
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
+    }
 
+    // Password Length requirement
+    public void passwordCheck() {
         if(password.length() < 6) {
             Toast.makeText(CreateUserActivity.this, "Password is too short, it needs to be at least 6 characters.",
                     Toast.LENGTH_SHORT).show();
             return;
         }
+    }
+
+    // Creates a new user and adds it to the database
+    public void createUser(View view) {
+        textViewsHandler();
+        passwordCheck();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("create user", "createUserWithEmail:onComplete:" + task.isSuccessful());
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(CreateUserActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -103,14 +110,20 @@ public class CreateUserActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                             addToDB();
-                            Intent overviewIntent = new Intent(getBaseContext(), OverviewActivity.class);
-                            startActivity(overviewIntent);
-                            finish();
+                            overviewIntent();
                         }
                     }
                 });
     }
 
+    // This will invoke the overview activity
+    private void overviewIntent() {
+        Intent overviewIntent = new Intent(getBaseContext(), OverviewActivity.class);
+        startActivity(overviewIntent);
+        finish();
+    }
+
+    // Create default values for a new user
     public void addToDB() {
         Customization customItem1 = new Customization("Driver Standings", "2017");
         Customization customItem2 = new Customization("Race Results", "2017");

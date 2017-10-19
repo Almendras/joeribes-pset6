@@ -1,7 +1,5 @@
 package com.example.joeribes.joeribes_pset6;
 
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-
-
 public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
     Context customContext;
+    String positionDriver, driver, constructor, time;
+    TextView positionView, item_titleView, timeView;
 
     public DriverResultsAdapter(Context context, ArrayList<DriverResults> activities) {
         super(context, R.layout.result_row , activities);
@@ -29,28 +27,39 @@ public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
             customView = myInflater.inflate(R.layout.result_row, parent, false);
         }
 
+        getInformation(position);
+        initializeViews(customView);
+        setTextFields();
 
-        // Initialize values
-        String positionDriver = getItem(position).getPosition();
-        String driver = getItem(position).getDriver();
-        String constructor = getItem(position).getConstructor();
-        String time = getItem(position).getTime();
+        return customView;
+    }
+
+    // Get the correct information
+    public void getInformation(int position) {
+        positionDriver = getItem(position).getPosition();
+        driver = getItem(position).getDriver();
+        constructor = getItem(position).getConstructor();
+        time = getItem(position).getTime();
 
         // Get the status of the driver instead of the time if there is no time available
         if(time.equals(" ")) {
             time = getItem(position).getStatus();
         }
+    }
 
-        // Initialize views
-        final TextView positionView = (TextView) customView.findViewById(R.id.counter);
-        final TextView item_titleView = (TextView) customView.findViewById(R.id.item_title);
-        final TextView timeView = (TextView) customView.findViewById(R.id.time);
+    // Initialize the views
+    public void initializeViews(View customView) {
+        positionView = (TextView) customView.findViewById(R.id.counter);
+        item_titleView = (TextView) customView.findViewById(R.id.item_title);
+        timeView = (TextView) customView.findViewById(R.id.time);
+    }
 
-        // Set the views
+    // Set the information in the Textfields
+    public void setTextFields() {
         positionView.setText(positionDriver);
         item_titleView.setText(driver + " - " + constructor);
         timeView.setText(time);
-
-        return customView;
     }
+
+
 }

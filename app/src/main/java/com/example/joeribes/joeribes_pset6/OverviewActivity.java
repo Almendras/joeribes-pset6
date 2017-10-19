@@ -52,48 +52,42 @@ public class OverviewActivity extends AppCompatActivity
         setContentView(R.layout.activity_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        createNavigationDrawer(toolbar);
 
+        // Database connection
+        mAuth = FirebaseAuth.getInstance();
+        setListener();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        // Initialize the navigation view
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        getCustoms();
+    }
+
+    // This will create the navigation drawer
+    public void createNavigationDrawer(Toolbar toolbar) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        mAuth = FirebaseAuth.getInstance();
-        setListener();
-
-        // Initialize database reference
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        customItems = new ArrayList<>();
-
-        getCustoms();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
+
+    // This will retrieve the customization items from the database
     public void getCustoms() {
+        customItems = new ArrayList<>();
+
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Retrieve the object from the database
-                DataSnapshot userSnapShot = dataSnapshot.child(user.getUid());
-                Iterable<DataSnapshot> userChildren = userSnapShot.getChildren();
-
-                for(DataSnapshot item: userChildren) {
-                    Customization c = item.getValue(Customization.class);
-                    customItems.add(c);
-                }
-
-                View headerView = navigationView.inflateHeaderView(R.layout.nav_header_overview);
-                TextView usernameOver = headerView.findViewById(R.id.usernameOverview);
-                usernameOver.setText(user.getEmail());
+                snapShot(dataSnapshot, user.getUid());
+                setUsernameNavigation(user.getEmail());
                 showAdapter();
-
             }
 
             @Override
@@ -104,8 +98,28 @@ public class OverviewActivity extends AppCompatActivity
         };
 
         mDatabase.addValueEventListener(postListener);
+    }
+
+    // Makes a snapshot of the database and adds it to customItems
+    public void snapShot(DataSnapshot dataSnapshot, String userUid) {
+        DataSnapshot userSnapShot = dataSnapshot.child(userUid);
+        Iterable<DataSnapshot> userChildren = userSnapShot.getChildren();
+
+        for(DataSnapshot item: userChildren) {
+            Customization c = item.getValue(Customization.class);
+            customItems.add(c);
+        }
+    }
+
+    // This will set the username in the navigationView
+    public void setUsernameNavigation(String userEmail) {
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_overview);
+        TextView usernameOver = headerView.findViewById(R.id.usernameOverview);
+        usernameOver.setText(userEmail);
 
     }
+
+
 
 
     private void setListener() {
@@ -159,28 +173,36 @@ public class OverviewActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            Intent addItemIntent = new Intent(getBaseContext(), AddItemActivity.class);
-            startActivity(addItemIntent);
-            finish();
+            addItemIntent();
             return true;
         } else if (id == R.id.action_delete) {
-            Intent deleteItemIntent = new Intent(getBaseContext(), DeleteItemActivity.class);
-            deleteItemIntent.putExtra("deleteCustomItem", customItems);
-            startActivity(deleteItemIntent);
-            finish();
+            deleteItemActivity();
             return true;
-
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    // This will invoke the addItem Activity
+    public void addItemIntent() {
+        Intent addItemIntent = new Intent(getBaseContext(), AddItemActivity.class);
+        startActivity(addItemIntent);
+        finish();
+    }
+
+    // This will invoke the deleteItem Acitivity
+    public void deleteItemActivity() {
+        Intent deleteItemIntent = new Intent(getBaseContext(), DeleteItemActivity.class);
+        deleteItemIntent.putExtra("deleteCustomItem", customItems);
+        startActivity(deleteItemIntent);
+        finish();
+    }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -210,6 +232,9 @@ public class OverviewActivity extends AppCompatActivity
 
     // Show the listview of the overview
     public void showAdapter() {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         ListAdapter myAdapter = new OverviewAdapter(this, customItems);
         overviewListView = (ListView) findViewById(R.id.overviewListView);
         assert overviewListView != null;

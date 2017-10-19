@@ -32,26 +32,33 @@ public class DeleteItemActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseUser user;
     String itemSelected;
+    ArrayList<String> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_item);
 
+        // Database information
         mAuth = FirebaseAuth.getInstance();
         setListener();
-
-        // Initialize database reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         customItems = (ArrayList<Customization>) this.getIntent().getSerializableExtra("deleteCustomItem");
+        createItemsArray(customItems);
+        createSpinner(items);
+    }
 
-        ArrayList<String> items = new ArrayList<String>();
+    // Create an Arraylist<String> for the spinner
+    public void createItemsArray(ArrayList<Customization> customItems) {
+        items = new ArrayList<>();
         for(Customization item : customItems) {
             items.add(item.getItem() + " " + item.getSeason());
         }
+    }
 
-
+    // Creates a spinner with the customization items of the user
+    public void createSpinner(ArrayList<String> items) {
         final Spinner spinItem = (Spinner) findViewById(R.id.items_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, items);
@@ -62,33 +69,31 @@ public class DeleteItemActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 itemSelected = spinItem.getSelectedItem().toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
+
     }
 
 
+    // Deletes the appropriate item from the database
     public void deleteFromDatabase(View view) {
         if (itemSelected != null) {
             mDatabase.child(mAuth.getCurrentUser().getUid()).child(itemSelected).removeValue();
 
-            Toast.makeText(DeleteItemActivity.this, "Deleted" + itemSelected,
+            Toast.makeText(DeleteItemActivity.this, "Deleted " + itemSelected,
                     Toast.LENGTH_SHORT).show();
         }
     }
 
+    // Return to the Overview activity
     public void goBack(View view) {
         Intent deleteItemIntent = new Intent(getBaseContext(), OverviewActivity.class);
         startActivity(deleteItemIntent);
         finish();
     }
-
-
-
 
     private void setListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {

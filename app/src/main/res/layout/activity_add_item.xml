@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
         android:onClick="searchApi"
-        android:text="Search" />
+        android:text="Add item" />
 
     <Spinner
         android:id="@+id/season_spinner"

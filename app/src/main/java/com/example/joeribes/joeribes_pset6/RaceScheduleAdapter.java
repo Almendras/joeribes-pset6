@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class RaceScheduleAdapter extends ArrayAdapter<RaceSchedule> {
     Context customContext;
+    String round, trackName, time, date;
+    TextView roundView, item_titleView, timeView, dateView;
 
     public RaceScheduleAdapter(Context context, ArrayList<RaceSchedule> activities) {
         super(context, R.layout.schedule_row , activities);
@@ -29,26 +31,36 @@ public class RaceScheduleAdapter extends ArrayAdapter<RaceSchedule> {
             customView = myInflater.inflate(R.layout.schedule_row, parent, false);
         }
 
-        // String season = getItem(position).getSeason();
-        String round = getItem(position).getRound();
-        String trackName = getItem(position).getRaceName();
-        String time = getItem(position).getTime();
-        String date = getItem(position).getDate();
+        getInformation(position);
+        initializeViews(customView);
+        setTextFields();
 
-        // Initialize views
-        final TextView roundView = (TextView) customView.findViewById(R.id.counter);
-        final TextView item_titleView = (TextView) customView.findViewById(R.id.item_title);
-        final TextView timeView = (TextView) customView.findViewById(R.id.time);
-        final TextView dateView = (TextView) customView.findViewById(R.id.date);
+        return customView;
+    }
 
+    // Retrieve the correct information
+    public void getInformation(int position) {
+        // season = getItem(position).getSeason();
+        round = getItem(position).getRound();
+        trackName = getItem(position).getRaceName();
+        time = getItem(position).getTime();
+        date = getItem(position).getDate();
+    }
 
-        // Set text
+    // Initialize the views
+    public void initializeViews(View customView) {
+        roundView = (TextView) customView.findViewById(R.id.counter);
+        item_titleView = (TextView) customView.findViewById(R.id.item_title);
+        timeView = (TextView) customView.findViewById(R.id.time);
+        dateView = (TextView) customView.findViewById(R.id.date);
+    }
+
+    // Set the information in the Textfields
+    public void setTextFields() {
         roundView.setText(round);
         item_titleView.setText(trackName);
         timeView.setText(time);
         dateView.setText(date);
-
-        return customView;
     }
 
 

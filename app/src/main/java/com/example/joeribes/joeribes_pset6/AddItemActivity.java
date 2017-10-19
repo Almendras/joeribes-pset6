@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddItemActivity extends AppCompatActivity {
-    String name;
-    String selectedSeason;
+    String name, selectedSeason, webURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         });
 
-
         // This will create a spinnner from 1950 to the current year
         ArrayList<String> season = new ArrayList<String>();
         int currentSeason = Calendar.getInstance().get(Calendar.YEAR);
@@ -71,34 +69,53 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
-
     public void searchApi(View view) {
-        String webURL;
         switch(name) {
             case "Driver Standings":
-                webURL = "http://ergast.com/api/f1/" + selectedSeason + "/driverStandings.json";
-                StandingsAsyncTaskAdd asyncTaskStanding = new StandingsAsyncTaskAdd(AddItemActivity.this);
-                asyncTaskStanding.execute(webURL);
+                driverStandingsSearch(selectedSeason);
                 break;
             case "Driver Information":
-                webURL = "http://ergast.com/api/f1/" + selectedSeason + "/drivers.json";
-                DriverAsyncTaskAdd asyncTaskDriver = new DriverAsyncTaskAdd(AddItemActivity.this);
-                asyncTaskDriver.execute(webURL);
+                driverInformationSearch(selectedSeason);
                 break;
             case "Race Results":
-                webURL = "http://ergast.com/api/f1/" + selectedSeason + "/1/results.json";
-                DriverResultsAsyncTaskAdd asyncTaskDriverResults= new DriverResultsAsyncTaskAdd(AddItemActivity.this);
-                asyncTaskDriverResults.execute(webURL);
+                raceResultsSearch(selectedSeason);
+
                 break;
             case "Race Schedule":
-                webURL = "http://ergast.com/api/f1/" + selectedSeason + ".json";
-                RaceScheduleAsyncTaskAdd asyncTaskRaceSchedule = new RaceScheduleAsyncTaskAdd(AddItemActivity.this);
-                asyncTaskRaceSchedule.execute(webURL);
+                raceScheduleSearch(selectedSeason);
                 break;
         }
     }
 
+    // Searches in the API for driver Standings
+    public void driverStandingsSearch(String selectedSeason) {
+        webURL = "http://ergast.com/api/f1/" + selectedSeason + "/driverStandings.json";
+        StandingsAsyncTaskAdd asyncTaskStanding = new StandingsAsyncTaskAdd(AddItemActivity.this);
+        asyncTaskStanding.execute(webURL);
+    }
 
+    // Searches in the API for driver Information
+    public void driverInformationSearch(String selectedSeason) {
+        webURL = "http://ergast.com/api/f1/" + selectedSeason + "/drivers.json";
+        DriverAsyncTaskAdd asyncTaskDriver = new DriverAsyncTaskAdd(AddItemActivity.this);
+        asyncTaskDriver.execute(webURL);
+    }
+
+    // Searches in the API for Race Results
+    public void raceResultsSearch(String selectedSeason) {
+        webURL = "http://ergast.com/api/f1/" + selectedSeason + "/1/results.json";
+        DriverResultsAsyncTaskAdd asyncTaskDriverResults= new DriverResultsAsyncTaskAdd(AddItemActivity.this);
+        asyncTaskDriverResults.execute(webURL);
+    }
+
+    // Searches in the API for the Race Schedule
+    public void raceScheduleSearch(String selectedSeason) {
+        webURL = "http://ergast.com/api/f1/" + selectedSeason + ".json";
+        RaceScheduleAsyncTaskAdd asyncTaskRaceSchedule = new RaceScheduleAsyncTaskAdd(AddItemActivity.this);
+        asyncTaskRaceSchedule.execute(webURL);
+    }
+
+    // Starts the driverResults intent for the second Activity
     public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, AdditemSecondActivity.class);
         driverResultsIntent.putExtra("driverResultsAdd", driverResults);
@@ -106,6 +123,7 @@ public class AddItemActivity extends AppCompatActivity {
         this.startActivity(driverResultsIntent);
     }
 
+    // Starts the raceSchedule intent for the second Activity
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, AdditemSecondActivity.class);
         raceScheduleIntent.putExtra("raceScheduleAdd", raceSchedules);
@@ -113,6 +131,7 @@ public class AddItemActivity extends AppCompatActivity {
         this.startActivity(raceScheduleIntent);
     }
 
+    // Starts the Standings intent for the second Activity
     public void startIntentStandings(Standings[] standings) {
         Intent standingsIntent = new Intent(this, AdditemSecondActivity.class);
         standingsIntent.putExtra("standingsAdd", standings);
@@ -120,6 +139,7 @@ public class AddItemActivity extends AppCompatActivity {
         this.startActivity(standingsIntent);
     }
 
+    // Starts the driversInformation intent for the second Activity
     public void startIntentDrivers(Driver[] driver) {
         Intent driversIntent = new Intent(this, AdditemSecondActivity.class);
         driversIntent.putExtra("driversAdd", driver);

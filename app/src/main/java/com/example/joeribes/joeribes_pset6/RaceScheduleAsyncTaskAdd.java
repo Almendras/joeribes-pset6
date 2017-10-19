@@ -44,22 +44,7 @@ public class RaceScheduleAsyncTaskAdd extends AsyncTask<String, Integer, String>
                 JSONObject RaceTable = MRData.getJSONObject("RaceTable");
                 JSONArray Races = RaceTable.getJSONArray("Races");
 
-                raceSchedule = new RaceSchedule[Races.length()];
-
-                // Get all position data
-                for(int i = 0; i < Races.length(); i++) {
-                    JSONObject raceScheduleObj = Races.getJSONObject(i);
-
-                    String season = raceScheduleObj.getString("season");
-                    String round = raceScheduleObj.getString("round");
-                    String raceName = raceScheduleObj.getString("raceName");
-                    String time = raceScheduleObj.getString("time");
-                    String date = raceScheduleObj.getString("date");
-
-                    raceSchedule[i] = new RaceSchedule(season, round, raceName, time, date);
-                }
-
-
+                raceSchedule = createRaceScheduleArray(Races);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -67,5 +52,27 @@ public class RaceScheduleAsyncTaskAdd extends AsyncTask<String, Integer, String>
 
             this.addItemAct.startIntentRaceSchedule(raceSchedule);
         }
+    }
+
+    private RaceSchedule[] createRaceScheduleArray(JSONArray Races) {
+        raceSchedule = new RaceSchedule[Races.length()];
+
+        try {
+            for (int i = 0; i < Races.length(); i++) {
+                JSONObject raceScheduleObj = Races.getJSONObject(i);
+
+                String season = raceScheduleObj.getString("season");
+                String round = raceScheduleObj.getString("round");
+                String raceName = raceScheduleObj.getString("raceName");
+                String time = raceScheduleObj.getString("time");
+                String date = raceScheduleObj.getString("date");
+                raceSchedule[i] = new RaceSchedule(season, round, raceName, time, date);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return raceSchedule;
     }
 }

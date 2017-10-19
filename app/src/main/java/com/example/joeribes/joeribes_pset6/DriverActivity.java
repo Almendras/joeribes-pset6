@@ -16,6 +16,7 @@ public class DriverActivity extends AppCompatActivity {
     ListView driverView;
     Driver[] driverArray;
     ArrayList<Driver> drivers;
+    Driver driverDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +43,19 @@ public class DriverActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Driver driverDescription = drivers.get(position);
-
-                        Intent driversIntent = new Intent(getApplicationContext(), DriverDescriptionActivity.class);
-                        driversIntent.putExtra("driverDescription", driverDescription);
-                        startActivity(driversIntent);
-
+                        driverDescription = drivers.get(position);
+                        DriverDescriptionIntent(driverDescription);
                     }
                 }
         );
 
+    }
+
+    // This will invoke the driverDescription Activity
+    public void DriverDescriptionIntent(Driver driverDescription) {
+        Intent driversIntent = new Intent(getApplicationContext(), DriverDescriptionActivity.class);
+        driversIntent.putExtra("driverDescription", driverDescription);
+        startActivity(driversIntent);
     }
 }
 

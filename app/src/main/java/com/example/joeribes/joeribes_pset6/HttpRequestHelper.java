@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class HttpRequestHelper {
     protected static synchronized String downloadFromServer(String... params) {
-        String result = "";
+        String result;
         String webURL = params[0];
 
         URL url = null;
@@ -23,13 +23,19 @@ public class HttpRequestHelper {
             e.printStackTrace();
         }
 
+        result = requestReader(url);
+        return result;
+    }
+
+    private static String requestReader(URL url) {
+        String result = "";
+        HttpURLConnection connect;
         if(url != null) {
             try {
                 connect = (HttpURLConnection) url.openConnection();
                 connect.setRequestMethod("GET");
 
                 Integer responseCode = connect.getResponseCode();
-
                 if (responseCode >= 200 && responseCode < 300) {
                     BufferedReader bReader = new BufferedReader(new InputStreamReader(connect.getInputStream()));
                     String line;
@@ -43,5 +49,6 @@ public class HttpRequestHelper {
             }
         }
         return result;
+
     }
 }

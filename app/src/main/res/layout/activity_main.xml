@@ -41,15 +41,14 @@
         android:id="@+id/createUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/skipButton"
-        android:layout_alignBottom="@+id/skipButton"
-        android:layout_alignStart="@+id/logInUser"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="55dp"
+        android:layout_marginLeft="16dp"
         android:onClick="createUser"
         android:text="Sign up"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="230dp" />
+        android:layout_marginRight="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignEnd="@+id/logInUser"
+        android:layout_alignStart="@+id/logInUser" />
 
     <!-- Login Button -->
     <Button
@@ -67,18 +66,6 @@
         android:layout_marginBottom="30dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:id="@+id/skipButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/logInUser"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="45dp"
-        android:onClick="skipButton"
-        android:text="Skip" />
 
     <ImageView
         android:id="@+id/imageView10"

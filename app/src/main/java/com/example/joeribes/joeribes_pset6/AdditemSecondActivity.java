@@ -38,33 +38,48 @@ public class AdditemSecondActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
-        String test = intent.getStringExtra("index");
+        String index = intent.getStringExtra("index");
 
-        switch (test) {
+        switch (index) {
             case "1":
-                DriverResults[] driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResultsAdd");
-                ArrayList<DriverResults> driversResults = new ArrayList<>(Arrays.asList(driverResultsArray));
-                season = driversResults.get(0).getSeason();
-                group = "Race Results";
-
+                driverResultsHelper();
                 break;
             case "2":
-                RaceSchedule[] raceSchedulesArray = (RaceSchedule[]) this.getIntent().getSerializableExtra("raceScheduleAdd");
-                ArrayList<RaceSchedule> raceSchedules = new ArrayList<>(Arrays.asList(raceSchedulesArray));
-                season = raceSchedules.get(0).getSeason();
-                group = "Race Schedule";
+                raceScheduleHelper();
                 break;
             case "3":
-                Standings[] standingsArray = (Standings[]) this.getIntent().getSerializableExtra("standingsAdd");
-                ArrayList<Standings> drivers = new ArrayList<>(Arrays.asList(standingsArray));
-                season = drivers.get(0).getSeason();
-                group = "Driver Standings";
+                driverStandingsHelper();
                 break;
         }
 
         addToDatabase();
     }
 
+    // Retrieves information from the intent for race results
+    public void driverResultsHelper() {
+        DriverResults[] driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResultsAdd");
+        ArrayList<DriverResults> driversResults = new ArrayList<>(Arrays.asList(driverResultsArray));
+        season = driversResults.get(0).getSeason();
+        group = "Race Results";
+    }
+
+    // Retrieves information from the intent for the race schedule
+    public void raceScheduleHelper() {
+        RaceSchedule[] raceSchedulesArray = (RaceSchedule[]) this.getIntent().getSerializableExtra("raceScheduleAdd");
+        ArrayList<RaceSchedule> raceSchedules = new ArrayList<>(Arrays.asList(raceSchedulesArray));
+        season = raceSchedules.get(0).getSeason();
+        group = "Race Schedule";
+    }
+
+    // Retrieves information for driver standings
+    public void driverStandingsHelper() {
+        Standings[] standingsArray = (Standings[]) this.getIntent().getSerializableExtra("standingsAdd");
+        ArrayList<Standings> drivers = new ArrayList<>(Arrays.asList(standingsArray));
+        season = drivers.get(0).getSeason();
+        group = "Driver Standings";
+    }
+
+    // Adds the appropriate item to the database and starts the Overview activity
     public void addToDatabase() {
         Customization customItem = new Customization(group, season);
         mDatabase.child(mAuth.getCurrentUser().getUid()).child("Driver Standings " + season).setValue(customItem);
@@ -90,8 +105,6 @@ public class AdditemSecondActivity extends AppCompatActivity {
             }
         };
     }
-
-
 
     @Override
     public void onStart() {

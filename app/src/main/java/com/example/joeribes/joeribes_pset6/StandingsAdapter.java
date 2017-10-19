@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class StandingsAdapter extends ArrayAdapter<Standings> {
     Context customContext;
+    String positionDriver, points, wins, driver, constructor, item_title;
+    TextView counterView, item_titleView, timeView, dateView;
 
     public StandingsAdapter(Context context, ArrayList<Standings> activities) {
         super(context, R.layout.standings_row , activities);
@@ -27,30 +29,38 @@ public class StandingsAdapter extends ArrayAdapter<Standings> {
             customView = myInflater.inflate(R.layout.standings_row, parent, false);
         }
 
-        //private String season, round, position, points, wins, driver, constructor;
+        getInformation(position);
+        initializeViews(customView);
+        setTextFields();
 
-        // String season = getItem(position).getSeason();
-        String season = getItem(position).getSeason();
-        String round = getItem(position).getRound();
-        String positionDriver = getItem(position).getPosition();
-        String points = getItem(position).getPoints();
-        String wins = getItem(position).getWins();
-        String driver = getItem(position).getDriver();
-        String constructor = getItem(position).getConstructor();
-        String item_title = driver + " - " + constructor;
+        return customView;
+    }
 
+    // Get the correct information
+    public void getInformation(int position) {
+        //String season = getItem(position).getSeason();
+        //String round = getItem(position).getRound();
+        positionDriver = getItem(position).getPosition();
+        points = getItem(position).getPoints();
+        wins = getItem(position).getWins();
+        driver = getItem(position).getDriver();
+        constructor = getItem(position).getConstructor();
+        item_title = driver + " - " + constructor;
+    }
 
+    // Initialize the views
+    public void initializeViews(View customView) {
+        counterView = (TextView) customView.findViewById(R.id.counter);
+        item_titleView = (TextView) customView.findViewById(R.id.item_title);
+        timeView = (TextView) customView.findViewById(R.id.points);
+        dateView = (TextView) customView.findViewById(R.id.wins);
+    }
 
-        final TextView counterView = (TextView) customView.findViewById(R.id.counter);
-        final TextView item_titleView = (TextView) customView.findViewById(R.id.item_title);
-        final TextView timeView = (TextView) customView.findViewById(R.id.points);
-        final TextView dateView = (TextView) customView.findViewById(R.id.wins);
-
+    // Set the information in the Textfields
+    public void setTextFields() {
         counterView.setText(positionDriver);
         item_titleView.setText(item_title);
         timeView.setText(points);
         dateView.setText(wins);
-
-        return customView;
     }
 }
