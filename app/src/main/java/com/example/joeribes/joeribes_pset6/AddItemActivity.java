@@ -87,9 +87,6 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void searchApi(View view) {
         switch(name) {
             case "Driver Standings":
@@ -141,6 +138,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent driverResultsIntent = new Intent(this, AdditemSecondActivity.class);
         driverResultsIntent.putExtra("driverResultsAdd", driverResults);
         driverResultsIntent.putExtra("index", "1");
+        driverResultsIntent.putExtra("season", selectedSeason);
         this.startActivity(driverResultsIntent);
     }
 
@@ -149,6 +147,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent raceScheduleIntent = new Intent(this, AdditemSecondActivity.class);
         raceScheduleIntent.putExtra("raceScheduleAdd", raceSchedules);
         raceScheduleIntent.putExtra("index", "2");
+        raceScheduleIntent.putExtra("season", selectedSeason);
         this.startActivity(raceScheduleIntent);
     }
 
@@ -157,6 +156,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent standingsIntent = new Intent(this, AdditemSecondActivity.class);
         standingsIntent.putExtra("standingsAdd", standings);
         standingsIntent.putExtra("index", "3");
+        standingsIntent.putExtra("season", selectedSeason);
         this.startActivity(standingsIntent);
     }
 
@@ -165,6 +165,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent driversIntent = new Intent(this, AdditemSecondActivity.class);
         driversIntent.putExtra("driversAdd", driver);
         driversIntent.putExtra("index", "4");
+        driversIntent.putExtra("season", season);
         this.startActivity(driversIntent);
     }
 

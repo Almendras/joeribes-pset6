@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
     Context customContext;
-    String positionDriver, driver, constructor, time;
+    String positionDriver, driver, time;
     TextView positionView, item_titleView, timeView;
 
     public DriverResultsAdapter(Context context, ArrayList<DriverResults> activities) {
@@ -38,7 +38,6 @@ public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
     public void getInformation(int position) {
         positionDriver = getItem(position).getPosition();
         driver = getItem(position).getDriver();
-        constructor = getItem(position).getConstructor();
         time = getItem(position).getTime();
 
         // Get the status of the driver instead of the time if there is no time available
@@ -57,7 +56,7 @@ public class DriverResultsAdapter extends ArrayAdapter<DriverResults> {
     // Set the information in the Textfields
     public void setTextFields() {
         positionView.setText(positionDriver);
-        item_titleView.setText(driver + " - " + constructor);
+        item_titleView.setText(driver);
         timeView.setText(time);
     }
 

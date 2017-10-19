@@ -38,8 +38,6 @@ public class StandingsAdapter extends ArrayAdapter<Standings> {
 
     // Get the correct information
     public void getInformation(int position) {
-        //String season = getItem(position).getSeason();
-        //String round = getItem(position).getRound();
         positionDriver = getItem(position).getPosition();
         points = getItem(position).getPoints();
         wins = getItem(position).getWins();

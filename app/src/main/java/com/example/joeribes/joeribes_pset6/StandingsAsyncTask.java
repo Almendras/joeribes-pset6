@@ -45,12 +45,9 @@ public class StandingsAsyncTask extends AsyncTask<String, Integer, String> {
                 JSONArray StandingsLists = StandingsTable.getJSONArray("StandingsLists");
 
                 JSONObject racesObj = StandingsLists.getJSONObject(0);
-                String season = racesObj.getString("season");
-                String round = racesObj.getString("round");
-
                 JSONArray DriverStandings =  racesObj.getJSONArray("DriverStandings");
 
-                standing = createStandingsArray(DriverStandings, season, round);
+                standing = createStandingsArray(DriverStandings);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -60,7 +57,7 @@ public class StandingsAsyncTask extends AsyncTask<String, Integer, String> {
         }
     }
 
-    private Standings[] createStandingsArray(JSONArray DriverStandings, String season, String round) {
+    private Standings[] createStandingsArray(JSONArray DriverStandings) {
         standing = new Standings[DriverStandings.length()];
         try {
             // Get all position data
@@ -80,11 +77,11 @@ public class StandingsAsyncTask extends AsyncTask<String, Integer, String> {
 
                 // Retrieve the constructor
                 JSONArray Constructor = DriverStanding.getJSONArray("Constructors");
-                //JSONObject Constructor = DriverStandings.getJSONObject("Constructors");
+
                 JSONObject ConstructorObj = Constructor.getJSONObject(0);
                 String constructor = ConstructorObj.getString("name");
 
-                standing[i] = new Standings(season, round, position, points, wins, driver, constructor);
+                standing[i] = new Standings(position, points, wins, driver, constructor);
             }
 
         } catch (JSONException e) {

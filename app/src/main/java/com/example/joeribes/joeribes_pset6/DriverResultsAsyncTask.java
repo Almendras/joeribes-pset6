@@ -45,12 +45,11 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
                 JSONArray Races = RaceTable.getJSONArray("Races");
 
                 JSONObject racesObj = Races.getJSONObject(0);
-                String season= racesObj.getString("season");
                 String race_name= racesObj.getString("raceName");
 
                 JSONArray raceResults = racesObj.getJSONArray("Results");
 
-                driverResults = createDriverResultsArray(raceResults, season, race_name);
+                driverResults = createDriverResultsArray(raceResults, race_name);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -60,7 +59,7 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
         }
     }
 
-    private DriverResults[] createDriverResultsArray(JSONArray raceResults, String season, String race_name) {
+    private DriverResults[] createDriverResultsArray(JSONArray raceResults, String race_name) {
         driverResults = new DriverResults[raceResults.length()];
 
         try {
@@ -77,10 +76,6 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
                 String familyName = Driver.getString("familyName");
                 String driver = givenName + " " + familyName;
 
-                // Retrieve the constructor
-                JSONObject Constructor = raceResult.getJSONObject("Constructor");
-                String constructor = Constructor.getString("name");
-
                 // Status
                 String status = raceResult.getString("status");
 
@@ -91,7 +86,7 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
                     time = Time.getString("time");
                 }
 
-                driverResults[i] = new DriverResults(race_name, season, driver, position, constructor, time, status);
+                driverResults[i] = new DriverResults(race_name, driver, position, time, status);
             }
 
         } catch(JSONException e) {

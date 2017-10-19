@@ -3,29 +3,17 @@ package com.example.joeribes.joeribes_pset6;
 import java.io.Serializable;
 
 public class Standings implements Serializable {
-    private String season, round, position, points, wins, driver, constructor;
+    private String position, points, wins, driver, constructor;
 
     // Default constructor
     public Standings() {}
 
-    public Standings(String season, String round, String position, String points, String wins, String driver, String constructor) {
-        this.season = season;
-        this.round = round;
+    public Standings(String position, String points, String wins, String driver, String constructor) {
         this.position = position;
         this.points = points;
         this.wins = wins;
         this.driver = driver;
         this.constructor = constructor;
-    }
-
-    // Returns the season
-    public String getSeason() {
-        return season;
-    }
-
-    // Returns the rounds
-    public String getRound() {
-        return round;
     }
 
     // Returns the position of the driver

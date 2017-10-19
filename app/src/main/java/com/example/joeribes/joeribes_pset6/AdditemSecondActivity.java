@@ -22,8 +22,7 @@ public class AdditemSecondActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
-    String group;
-    String season;
+    String group, season;
 
 
     @Override
@@ -39,6 +38,7 @@ public class AdditemSecondActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String index = intent.getStringExtra("index");
+        season = intent.getStringExtra("season");
 
         switch (index) {
             case "1":
@@ -59,7 +59,6 @@ public class AdditemSecondActivity extends AppCompatActivity {
     public void driverResultsHelper() {
         DriverResults[] driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResultsAdd");
         ArrayList<DriverResults> driversResults = new ArrayList<>(Arrays.asList(driverResultsArray));
-        season = driversResults.get(0).getSeason();
         group = "Race Results";
     }
 
@@ -67,7 +66,6 @@ public class AdditemSecondActivity extends AppCompatActivity {
     public void raceScheduleHelper() {
         RaceSchedule[] raceSchedulesArray = (RaceSchedule[]) this.getIntent().getSerializableExtra("raceScheduleAdd");
         ArrayList<RaceSchedule> raceSchedules = new ArrayList<>(Arrays.asList(raceSchedulesArray));
-        season = raceSchedules.get(0).getSeason();
         group = "Race Schedule";
     }
 
@@ -75,7 +73,6 @@ public class AdditemSecondActivity extends AppCompatActivity {
     public void driverStandingsHelper() {
         Standings[] standingsArray = (Standings[]) this.getIntent().getSerializableExtra("standingsAdd");
         ArrayList<Standings> drivers = new ArrayList<>(Arrays.asList(standingsArray));
-        season = drivers.get(0).getSeason();
         group = "Driver Standings";
     }
 
