@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -26,10 +27,24 @@ public class AddItemActivity extends AppCompatActivity {
         item.add("Race Results");
         item.add("Race Schedule");
 
-        Spinner spinItem = (Spinner) findViewById(R.id.item_spinner);
+        final Spinner spinItem = (Spinner) findViewById(R.id.item_spinner_select);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, item);
         spinItem.setAdapter(adapter);
+
+        spinItem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                name = spinItem.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
 
         // This will create a spinnner from 1950 to the current year
         ArrayList<String> season = new ArrayList<String>();
@@ -39,11 +54,27 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> seasonAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, season);
-        Spinner spinSeason= (Spinner) findViewById(R.id.season_spinner);
+        final Spinner spinSeason= (Spinner) findViewById(R.id.season_spinner);
         spinSeason.setAdapter(seasonAdapter);
 
-        name = spinItem.getSelectedItem().toString();
-        selectedSeason = spinSeason.getSelectedItem().toString();
+
+        spinSeason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedSeason = spinSeason.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
+
+
+
+        //name = spinItem.getSelectedItem().toString();
+        //selectedSeason = spinSeason.getSelectedItem().toString();
     }
 
 
@@ -76,25 +107,25 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, AdditemSecondActivity.class);
-        driverResultsIntent.putExtra("driverResults", driverResults);
+        driverResultsIntent.putExtra("driverResultsAdd", driverResults);
         this.startActivity(driverResultsIntent);
     }
 
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, AdditemSecondActivity.class);
-        raceScheduleIntent.putExtra("raceSchedule", raceSchedules);
+        raceScheduleIntent.putExtra("raceScheduleAdd", raceSchedules);
         this.startActivity(raceScheduleIntent);
     }
 
     public void startIntentStandings(Standings[] standings) {
         Intent standingsIntent = new Intent(this, AdditemSecondActivity.class);
-        standingsIntent.putExtra("standings", standings);
+        standingsIntent.putExtra("standingsAdd", standings);
         this.startActivity(standingsIntent);
     }
 
     public void startIntentDrivers(Driver[] driver) {
         Intent driversIntent = new Intent(this, AdditemSecondActivity.class);
-        driversIntent.putExtra("drivers", driver);
+        driversIntent.putExtra("driversAdd", driver);
         this.startActivity(driversIntent);
     }
 

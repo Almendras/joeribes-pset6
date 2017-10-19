@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateUserActivity extends AppCompatActivity {
@@ -116,12 +117,23 @@ public class CreateUserActivity extends AppCompatActivity {
         Customization customItem3 = new Customization("Race Schedule", "2017");
         Customization customItem4 = new Customization("Driver Information", "2017");
 
+        /*
+        CustomizationList customList1 = new CustomizationList("Driver Standings");
+        customList1.addCustomization(customItem1);
+        CustomizationList customList2 = new CustomizationList("Race Results");
+        customList2.addCustomization(customItem2);
+        CustomizationList customList3 = new CustomizationList("Race Schedule");
+        customList3.addCustomization(customItem3);
+        CustomizationList customList4 = new CustomizationList("Driver Information");
+        customList4.addCustomization(customItem4);
+        */
+
 
         HashMap<String, Customization> map = new HashMap<>();
-        map.put("Driver Standings", customItem1);
-        map.put("Race Results", customItem2);
-        map.put("Race Schedule", customItem3);
-        map.put("Driver Information", customItem4);
+        map.put("Driver Standings 2017", customItem1);
+        map.put("Race Results 2017", customItem2);
+        map.put("Race Schedule 2017", customItem3);
+        map.put("Driver Information 2017", customItem4);
 
         mDatabase.child(user.getUid()).setValue(map);
     }

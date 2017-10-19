@@ -165,11 +165,18 @@ public class OverviewActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
             Intent addItemIntent = new Intent(getBaseContext(), AddItemActivity.class);
             startActivity(addItemIntent);
             finish();
             return true;
+        } else if (id == R.id.action_delete) {
+            Intent deleteItemIntent = new Intent(getBaseContext(), DeleteItemActivity.class);
+            deleteItemIntent.putExtra("deleteCustomItem", customItems);
+            startActivity(deleteItemIntent);
+            finish();
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
