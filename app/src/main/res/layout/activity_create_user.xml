@@ -47,7 +47,7 @@
         android:text="Return"
         android:layout_marginRight="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="25dp"
         android:layout_alignEnd="@+id/createUser"
         android:layout_alignStart="@+id/createUser" />
 

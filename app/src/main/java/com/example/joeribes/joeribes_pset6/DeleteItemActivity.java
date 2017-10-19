@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +36,7 @@ public class DeleteItemActivity extends AppCompatActivity {
     private FirebaseUser user;
     String itemSelected;
     ArrayList<String> items;
+    Toolbar toolbarDelete;
 
     @Override
     public void onBackPressed() {
@@ -54,7 +58,37 @@ public class DeleteItemActivity extends AppCompatActivity {
         customItems = (ArrayList<Customization>) this.getIntent().getSerializableExtra("deleteCustomItem");
         createItemsArray(customItems);
         createSpinner(items);
+
+        toolBar();
     }
+
+    public void toolBar() {
+        toolbarDelete = (Toolbar) findViewById(R.id.toolbar_custom);
+        setSupportActionBar(toolbarDelete);
+        getSupportActionBar().setTitle("Delete item");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_custom, menu);
+        setTitle("Delete item");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent intent = new Intent(getBaseContext(), OverviewActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
     // Create an Arraylist<String> for the spinner
     public void createItemsArray(ArrayList<Customization> customItems) {
@@ -92,13 +126,6 @@ public class DeleteItemActivity extends AppCompatActivity {
             Toast.makeText(DeleteItemActivity.this, "Deleted " + itemSelected,
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    // Return to the Overview activity
-    public void goBack(View view) {
-        Intent deleteItemIntent = new Intent(getBaseContext(), OverviewActivity.class);
-        startActivity(deleteItemIntent);
-        finish();
     }
 
     private void setListener() {

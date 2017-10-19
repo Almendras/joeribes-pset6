@@ -3,6 +3,9 @@ package com.example.joeribes.joeribes_pset6;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +17,7 @@ import java.util.Calendar;
 public class AddItemActivity extends AppCompatActivity {
     String name, selectedSeason, webURL;
     ArrayList<String> items, season;
+    Toolbar toolbarAdditem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,21 @@ public class AddItemActivity extends AppCompatActivity {
         initializeValueSpinnerSeason();
         createSpinnerSeason(season);
 
+        toolBar();
+
+    }
+
+    public void toolBar() {
+        toolbarAdditem = (Toolbar) findViewById(R.id.toolbar_custom);
+        setSupportActionBar(toolbarAdditem);
+        getSupportActionBar().setTitle("Add item");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_custom, menu);
+        setTitle("Add item");
+        return true;
     }
 
     @Override
@@ -33,6 +52,19 @@ public class AddItemActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent intent = new Intent(getBaseContext(), OverviewActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     // Creates a spinner with Items
