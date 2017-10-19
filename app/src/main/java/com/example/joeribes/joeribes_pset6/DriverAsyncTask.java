@@ -40,47 +40,55 @@ public class DriverAsyncTask extends AsyncTask<String, Integer, String> {
                 JSONObject formula1StreamObj = new JSONObject(result);
                 JSONObject MRData = formula1StreamObj.getJSONObject("MRData");
                 JSONObject DriverTable = MRData.getJSONObject("DriverTable");
-                JSONArray DriversObj = DriverTable.getJSONArray("Drivers");
+                JSONArray Drivers = DriverTable.getJSONArray("Drivers");
 
-                driver = new Driver[DriversObj.length()];
-
-                // Get all position data
-                for(int i = 0; i < DriversObj.length(); i++) {
-                    JSONObject driverObj = DriversObj.getJSONObject(i);
-
-                    // Retrieve the driver givenName and familyName
-                    String givenName = driverObj.getString("givenName");
-                    String familyName = driverObj.getString("familyName");
-                    String driverName = givenName + " " + familyName;
-
-                    // Retrieve the driver Code
-                    String driverCode = driverObj.getString("code");
-
-                    // Retrieve the driver Number
-                    String driverNumber = " ";
-                    if(driverObj.has("permanentNumber")) {
-                        driverNumber = driverObj.getString("permanentNumber");
-                    }
-
-                    // Retrieve the date of birth
-                    String dateOfBirth = driverObj.getString("dateOfBirth");
-
-                    // Retrieve the nationality
-                    String nationality = driverObj.getString("nationality");
-
-                    // Retrieve the wikiurl
-                    String wikiurl = driverObj.getString("url");
-
-                    driver[i] = new Driver(driverName, driverCode, driverNumber, dateOfBirth, nationality, wikiurl);
-                }
-
-
-
+                driver = createDriverArray(Drivers);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             this.overAct.startIntentDrivers(driver);
         }
+    }
+
+    private Driver[] createDriverArray(JSONArray Drivers) {
+        driver = new Driver[Drivers.length()];
+
+        try {
+            for(int i = 0; i < Drivers.length(); i++) {
+                JSONObject driverObj = Drivers.getJSONObject(i);
+
+                // Retrieve the driver givenName and familyName
+                String givenName = driverObj.getString("givenName");
+                String familyName = driverObj.getString("familyName");
+                String driverName = givenName + " " + familyName;
+
+                // Retrieve the driver Code
+                String driverCode = driverObj.getString("code");
+
+                // Retrieve the driver Number
+                String driverNumber = " ";
+                if (driverObj.has("permanentNumber")) {
+                    driverNumber = driverObj.getString("permanentNumber");
+                }
+
+                // Retrieve the date of birth
+                String dateOfBirth = driverObj.getString("dateOfBirth");
+
+                // Retrieve the nationality
+                String nationality = driverObj.getString("nationality");
+
+                // Retrieve the wikiurl
+                String wikiurl = driverObj.getString("url");
+
+                driver[i] = new Driver(driverName, driverCode, driverNumber, dateOfBirth, nationality, wikiurl);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return driver;
+
     }
 }

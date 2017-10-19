@@ -13,21 +13,26 @@ import java.util.Calendar;
 
 public class AddItemActivity extends AppCompatActivity {
     String name, selectedSeason, webURL;
+    ArrayList<String> items, season;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        // Creates a spinner for the items
-        ArrayList<String> item = new ArrayList<String>();
-        item.add("Driver Standings");
-        item.add("Race Results");
-        item.add("Race Schedule");
+        initializeValueSpinnerItem();
+        createSpinnerItems(items);
 
+        initializeValueSpinnerSeason();
+        createSpinnerSeason(season);
+
+    }
+
+    // Creates a spinner with Items
+    public void createSpinnerItems(ArrayList<String> items) {
         final Spinner spinItem = (Spinner) findViewById(R.id.item_spinner_select);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, item);
+                android.R.layout.simple_spinner_item, items);
         spinItem.setAdapter(adapter);
 
         spinItem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -38,18 +43,13 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+
             }
 
         });
+    }
 
-        // This will create a spinnner from 1950 to the current year
-        ArrayList<String> season = new ArrayList<String>();
-        int currentSeason = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1950; i <= currentSeason; i++) {
-            season.add(Integer.toString(i));
-        }
-
+    public void createSpinnerSeason(ArrayList<String> season) {
         ArrayAdapter<String> seasonAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, season);
         final Spinner spinSeason= (Spinner) findViewById(R.id.season_spinner);
         spinSeason.setAdapter(seasonAdapter);
@@ -65,9 +65,30 @@ public class AddItemActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
 
             }
-
         });
     }
+
+
+    // Creates a spinner for the items
+    public void initializeValueSpinnerItem() {
+        items = new ArrayList<>();
+        items.add("Driver Standings");
+        items.add("Race Results");
+        items.add("Race Schedule");
+    }
+
+    // This will create a spinnner values from 1950 to the current year
+    public void initializeValueSpinnerSeason() {
+        season = new ArrayList<>();
+        int currentSeason = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = 1950; i <= currentSeason; i++) {
+            season.add(Integer.toString(i));
+        }
+    }
+
+
+
+
 
     public void searchApi(View view) {
         switch(name) {

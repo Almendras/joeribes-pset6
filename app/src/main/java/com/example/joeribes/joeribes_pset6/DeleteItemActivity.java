@@ -71,10 +71,9 @@ public class DeleteItemActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+
             }
         });
-
     }
 
 

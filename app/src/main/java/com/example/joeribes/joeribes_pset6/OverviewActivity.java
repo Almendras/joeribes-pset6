@@ -76,7 +76,6 @@ public class OverviewActivity extends AppCompatActivity
 
     }
 
-
     // This will retrieve the customization items from the database
     public void getCustoms() {
         customItems = new ArrayList<>();
@@ -230,8 +229,7 @@ public class OverviewActivity extends AppCompatActivity
         return true;
     }
 
-    // Show the listview of the overview
-    public void showAdapter() {
+    public void navigationViewHelper() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -241,6 +239,13 @@ public class OverviewActivity extends AppCompatActivity
 
         overviewListView.setAdapter(myAdapter);
 
+    }
+
+
+    // Show the listview of the overview
+    public void showAdapter() {
+        navigationViewHelper();
+
         overviewListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
                     @Override
@@ -249,27 +254,18 @@ public class OverviewActivity extends AppCompatActivity
                         Customization item = customItems.get(position);
                         String name = item.getItem();
                         String season = item.getSeason();
-                        String webURL;
                         switch(name) {
                             case "Driver Standings":
-                                webURL = "http://ergast.com/api/f1/" + season + "/driverStandings.json";
-                                StandingsAsyncTask asyncTaskStanding = new StandingsAsyncTask(OverviewActivity.this);
-                                asyncTaskStanding.execute(webURL);
+                                driverStandingsHelper(season);
                                 break;
                             case "Driver Information":
-                                webURL = "http://ergast.com/api/f1/" + season + "/drivers.json";
-                                DriverAsyncTask asyncTaskDriver = new DriverAsyncTask(OverviewActivity.this);
-                                asyncTaskDriver.execute(webURL);
+                                driverInformationHelper(season);
                                 break;
                             case "Race Results":
-                                webURL = "http://ergast.com/api/f1/" + season + "/1/results.json";
-                                DriverResultsAsyncTask asyncTaskDriverResults= new DriverResultsAsyncTask(OverviewActivity.this);
-                                asyncTaskDriverResults.execute(webURL);
+                                raceResultsHelper(season);
                                 break;
                             case "Race Schedule":
-                                webURL = "http://ergast.com/api/f1/" + season + ".json";
-                                RaceScheduleAsyncTask asyncTaskRaceSchedule = new RaceScheduleAsyncTask(OverviewActivity.this);
-                                asyncTaskRaceSchedule.execute(webURL);
+                                raceResultsHelper(season);
                                 break;
                         }
                     }
@@ -277,24 +273,57 @@ public class OverviewActivity extends AppCompatActivity
         );
     }
 
+    // Driver standings helper for AsyncTask
+    public void driverStandingsHelper(String season) {
+        String webURL = "http://ergast.com/api/f1/" + season + "/driverStandings.json";
+        StandingsAsyncTask asyncTaskStanding = new StandingsAsyncTask(OverviewActivity.this);
+        asyncTaskStanding.execute(webURL);
+    }
+
+    // Driver information helper for AsyncTask
+    public void driverInformationHelper(String season) {
+        String webURL = "http://ergast.com/api/f1/" + season + "/drivers.json";
+        DriverAsyncTask asyncTaskDriver = new DriverAsyncTask(OverviewActivity.this);
+        asyncTaskDriver.execute(webURL);
+    }
+
+    // Race results helper for AsyncTask
+    public void raceResultsHelper(String season) {
+        String webURL = "http://ergast.com/api/f1/" + season + "/last/results.json";
+        DriverResultsAsyncTask asyncTaskDriverResults= new DriverResultsAsyncTask(OverviewActivity.this);
+        asyncTaskDriverResults.execute(webURL);
+    }
+
+    // Race schedule helper for AsyncTask
+    public void raceScheduleHelper(String season) {
+        String webURL = "http://ergast.com/api/f1/" + season + ".json";
+        RaceScheduleAsyncTask asyncTaskRaceSchedule = new RaceScheduleAsyncTask(OverviewActivity.this);
+        asyncTaskRaceSchedule.execute(webURL);
+    }
+
+
+    // Starts the activity for driver results
     public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, DriverResultsActivity.class);
         driverResultsIntent.putExtra("driverResults", driverResults);
         this.startActivity(driverResultsIntent);
     }
 
+    // Starts the activity for the race schedule
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, RaceScheduleActivity.class);
         raceScheduleIntent.putExtra("raceSchedule", raceSchedules);
         this.startActivity(raceScheduleIntent);
     }
 
+    // Starts the activity for the race standings
     public void startIntentStandings(Standings[] standings) {
         Intent standingsIntent = new Intent(this, StandingsActivity.class);
         standingsIntent.putExtra("standings", standings);
         this.startActivity(standingsIntent);
     }
 
+    // Starts the activity for the driver information
     public void startIntentDrivers(Driver[] driver) {
         Intent driversIntent = new Intent(this, DriverActivity.class);
         driversIntent.putExtra("drivers", driver);
