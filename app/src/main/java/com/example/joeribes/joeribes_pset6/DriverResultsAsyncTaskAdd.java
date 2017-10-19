@@ -42,14 +42,11 @@ public class DriverResultsAsyncTaskAdd extends AsyncTask<String, Integer, String
                 JSONObject formula1StreamObj = new JSONObject(result);
                 JSONObject MRData = formula1StreamObj.getJSONObject("MRData");
                 JSONObject RaceTable = MRData.getJSONObject("RaceTable");
-                //JSONObject Races = RaceTable.getJSONObject("Races");
                 JSONArray Races = RaceTable.getJSONArray("Races");
 
                 JSONObject racesObj = Races.getJSONObject(0);
                 String season= racesObj.getString("season");
                 String race_name= racesObj.getString("raceName");
-
-                //String race_name = Races.getJSONObject(3).toString();
 
                 JSONArray raceResultsObj = racesObj.getJSONArray("Results");
                 driverResults = new DriverResults[raceResultsObj.length()];
@@ -66,7 +63,6 @@ public class DriverResultsAsyncTaskAdd extends AsyncTask<String, Integer, String
                     String givenName = Driver.getString("givenName");
                     String familyName = Driver.getString("familyName");
                     String driver = givenName + " " + familyName;
-
 
                     // Retrieve the constructor
                     JSONObject Constructor = raceResult.getJSONObject("Constructor");

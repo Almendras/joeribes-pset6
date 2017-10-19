@@ -44,7 +44,6 @@ public class StandingsAsyncTaskAdd extends AsyncTask<String, Integer, String> {
                 JSONObject StandingsTable = MRData.getJSONObject("StandingsTable");
                 JSONArray StandingsLists = StandingsTable.getJSONArray("StandingsLists");
 
-
                 JSONObject racesObj = StandingsLists.getJSONObject(0);
                 String season = racesObj.getString("season");
                 String round = racesObj.getString("round");
@@ -57,10 +56,10 @@ public class StandingsAsyncTaskAdd extends AsyncTask<String, Integer, String> {
                 for(int i = 0; i < DriverStandingsObj.length(); i++) {
                     JSONObject DriverStandings = DriverStandingsObj.getJSONObject(i);
 
+                    // Retrieve the position, points, wins
                     String position = DriverStandings.getString("position");
                     String points = DriverStandings.getString("points");
                     String wins = DriverStandings.getString("wins");
-
 
                     // Retrieve the driver givenName and familyName
                     JSONObject Driver = DriverStandings.getJSONObject("Driver");

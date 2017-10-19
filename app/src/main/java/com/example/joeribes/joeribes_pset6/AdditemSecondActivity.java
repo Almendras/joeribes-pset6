@@ -22,10 +22,7 @@ public class AdditemSecondActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
-    //Standings[] standingsArray;
-    DriverResults[] driverResultsArray;
-    Driver[] driverArray;
-    RaceSchedule[] scheduleArray;
+    String group;
     String season;
 
 
@@ -40,46 +37,41 @@ public class AdditemSecondActivity extends AppCompatActivity {
         // Initialize database reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-        //Bundle bundle = this.getIntent().getExtras();
-        /*
-        String driverResults = bundle.getString("driverResults");
-        String raceSchedule = bundle.getString("raceSchedule");
-        String standings = bundle.getString("standings");
-        String drivers = bundle.getString("drivers");
-        int a = 5;
-        */
-
-
         Intent intent = getIntent();
-        Standings[] standingsArray = (Standings[]) this.getIntent().getSerializableExtra("standingsAdd");
-        ArrayList<Standings> drivers = new ArrayList<>(Arrays.asList(standingsArray));
-        season = drivers.get(0).getSeason();
-        int a = 5;
-        /*
-        Intent intent = getIntent();
-        if(intent.getExtras().containsKey("standingsAdd")) {
-            Standings[] standingsArray = (Standings[]) intent.getSerializableExtra("standingsAdd");
-            int a = 5;
-        }
-        */
+        String test = intent.getStringExtra("index");
 
-        /*
-            else if (intent.hasExtra("driverResults")) {
-            driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResults");
-        } else if (intent.hasExtra("raceSchedule")) {
-            scheduleArray = (RaceSchedule[]) this.getIntent().getSerializableExtra("raceSchedule");
-        } else if (intent.hasExtra("drivers")) {
-            driverArray = (Driver[]) this.getIntent().getSerializableExtra("drivers");
+        switch (test) {
+            case "1":
+                DriverResults[] driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResultsAdd");
+                ArrayList<DriverResults> driversResults = new ArrayList<>(Arrays.asList(driverResultsArray));
+                season = driversResults.get(0).getSeason();
+                group = "Race Results";
+
+                break;
+            case "2":
+                RaceSchedule[] raceSchedulesArray = (RaceSchedule[]) this.getIntent().getSerializableExtra("raceScheduleAdd");
+                ArrayList<RaceSchedule> raceSchedules = new ArrayList<>(Arrays.asList(raceSchedulesArray));
+                season = raceSchedules.get(0).getSeason();
+                group = "Race Schedule";
+                break;
+            case "3":
+                Standings[] standingsArray = (Standings[]) this.getIntent().getSerializableExtra("standingsAdd");
+                ArrayList<Standings> drivers = new ArrayList<>(Arrays.asList(standingsArray));
+                season = drivers.get(0).getSeason();
+                group = "Driver Standings";
+                break;
         }
-        */
 
         addToDatabase();
     }
 
     public void addToDatabase() {
-        Customization customItem = new Customization("Driver Standings", season);
+        Customization customItem = new Customization(group, season);
         mDatabase.child(mAuth.getCurrentUser().getUid()).child("Driver Standings " + season).setValue(customItem);
+
+        Intent deleteItemIntent = new Intent(getBaseContext(), OverviewActivity.class);
+        startActivity(deleteItemIntent);
+        finish();
     }
 
     private void setListener() {

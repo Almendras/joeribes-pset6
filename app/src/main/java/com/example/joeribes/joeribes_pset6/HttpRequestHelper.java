@@ -13,9 +13,6 @@ public class HttpRequestHelper {
         String result = "";
         String webURL = params[0];
 
-        // Create the url link
-        //String webURL = "http://ergast.com/api/f1/current/last/results.json";
-
         URL url = null;
 
         HttpURLConnection connect;

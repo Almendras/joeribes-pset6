@@ -19,6 +19,7 @@ public class DriverResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_results);
 
+        // Retrieve intents
         driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResults");
         driverResults = new ArrayList<>(Arrays.asList(driverResultsArray));
 

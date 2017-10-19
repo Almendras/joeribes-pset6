@@ -23,7 +23,6 @@ public class AddItemActivity extends AppCompatActivity {
         // Creates a spinner for the items
         ArrayList<String> item = new ArrayList<String>();
         item.add("Driver Standings");
-        item.add("Driver Information");
         item.add("Race Results");
         item.add("Race Schedule");
 
@@ -70,11 +69,6 @@ public class AddItemActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-        //name = spinItem.getSelectedItem().toString();
-        //selectedSeason = spinSeason.getSelectedItem().toString();
     }
 
 
@@ -108,24 +102,28 @@ public class AddItemActivity extends AppCompatActivity {
     public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, AdditemSecondActivity.class);
         driverResultsIntent.putExtra("driverResultsAdd", driverResults);
+        driverResultsIntent.putExtra("index", "1");
         this.startActivity(driverResultsIntent);
     }
 
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, AdditemSecondActivity.class);
         raceScheduleIntent.putExtra("raceScheduleAdd", raceSchedules);
+        raceScheduleIntent.putExtra("index", "2");
         this.startActivity(raceScheduleIntent);
     }
 
     public void startIntentStandings(Standings[] standings) {
         Intent standingsIntent = new Intent(this, AdditemSecondActivity.class);
         standingsIntent.putExtra("standingsAdd", standings);
+        standingsIntent.putExtra("index", "3");
         this.startActivity(standingsIntent);
     }
 
     public void startIntentDrivers(Driver[] driver) {
         Intent driversIntent = new Intent(this, AdditemSecondActivity.class);
         driversIntent.putExtra("driversAdd", driver);
+        driversIntent.putExtra("index", "4");
         this.startActivity(driversIntent);
     }
 

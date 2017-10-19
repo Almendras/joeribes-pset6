@@ -82,7 +82,6 @@ public class DriverResultsAsyncTask extends AsyncTask<String, Integer, String> {
                         time = Time.getString("time");
                     }
 
-
                     driverResults[i] = new DriverResults(race_name, season, driver, position, constructor, time, status);
                 }
 

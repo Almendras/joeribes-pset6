@@ -22,6 +22,7 @@ public class DriverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver);
 
+        // Initialize values
         driverArray = (Driver[]) this.getIntent().getSerializableExtra("drivers");
         drivers = new ArrayList<>(Arrays.asList(driverArray));
 

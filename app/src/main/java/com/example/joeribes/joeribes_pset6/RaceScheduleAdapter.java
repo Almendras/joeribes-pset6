@@ -35,13 +35,14 @@ public class RaceScheduleAdapter extends ArrayAdapter<RaceSchedule> {
         String time = getItem(position).getTime();
         String date = getItem(position).getDate();
 
-
-
+        // Initialize views
         final TextView roundView = (TextView) customView.findViewById(R.id.counter);
         final TextView item_titleView = (TextView) customView.findViewById(R.id.item_title);
         final TextView timeView = (TextView) customView.findViewById(R.id.time);
         final TextView dateView = (TextView) customView.findViewById(R.id.date);
 
+
+        // Set text
         roundView.setText(round);
         item_titleView.setText(trackName);
         timeView.setText(time);

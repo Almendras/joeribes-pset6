@@ -29,13 +29,16 @@ public class OverviewAdapter extends ArrayAdapter<Customization> {
             customView = myInflater.inflate(R.layout.overview_row, parent, false);
         }
 
+        // Initialize values
         String item = getItem(position).getItem();
         String season = getItem(position).getSeason();
 
-
+        // Initialize views
         final TextView itemView = (TextView) customView.findViewById(R.id.itemView);
         final TextView seasonView = (TextView) customView.findViewById(R.id.seasonView);
 
+
+        // Set text
         itemView.setText(item);
         seasonView.setText(season);
 
