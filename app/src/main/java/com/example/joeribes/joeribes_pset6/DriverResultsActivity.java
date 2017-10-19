@@ -1,8 +1,11 @@
 package com.example.joeribes.joeribes_pset6;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -25,10 +28,30 @@ public class DriverResultsActivity extends AppCompatActivity {
         // Retrieve intents
         driverResultsArray = (DriverResults[]) this.getIntent().getSerializableExtra("driverResults");
         driverResults = new ArrayList<>(Arrays.asList(driverResultsArray));
+        season = this.getIntent().getStringExtra("season");
 
         toolBar();
 
         showAdapter();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent intent = new Intent(getBaseContext(), OverviewActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_custom, menu);
+        return true;
     }
 
     public void toolBar() {

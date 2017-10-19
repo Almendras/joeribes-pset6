@@ -43,7 +43,6 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_custom, menu);
-        setTitle("Add item");
         return true;
     }
 

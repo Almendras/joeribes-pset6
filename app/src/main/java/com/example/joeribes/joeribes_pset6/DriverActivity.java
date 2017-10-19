@@ -61,7 +61,6 @@ public class DriverActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_custom, menu);
-        setTitle("Driver information"+ season);
         return true;
     }
 

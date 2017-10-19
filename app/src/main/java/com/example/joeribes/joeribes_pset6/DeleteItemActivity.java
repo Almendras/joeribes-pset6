@@ -65,7 +65,6 @@ public class DeleteItemActivity extends AppCompatActivity {
     public void toolBar() {
         toolbarDelete = (Toolbar) findViewById(R.id.toolbar_custom);
         setSupportActionBar(toolbarDelete);
-        getSupportActionBar().setTitle("Delete item");
     }
 
     @Override
