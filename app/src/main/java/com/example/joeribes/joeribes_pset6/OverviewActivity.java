@@ -37,13 +37,13 @@ public class OverviewActivity extends AppCompatActivity
 
     // Initialize values
     ListView overviewListView;
-    //ArrayList testArray;
     ArrayList<Customization> customItems;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
     NavigationView navigationView;
+    String season;
 
 
     @Override
@@ -253,7 +253,7 @@ public class OverviewActivity extends AppCompatActivity
 
                         Customization item = customItems.get(position);
                         String name = item.getItem();
-                        String season = item.getSeason();
+                        season = item.getSeason();
                         switch(name) {
                             case "Driver Standings":
                                 driverStandingsHelper(season);
@@ -306,6 +306,7 @@ public class OverviewActivity extends AppCompatActivity
     public void startIntentDriverResults(DriverResults[] driverResults) {
         Intent driverResultsIntent = new Intent(this, DriverResultsActivity.class);
         driverResultsIntent.putExtra("driverResults", driverResults);
+        driverResultsIntent.putExtra("season", season);
         this.startActivity(driverResultsIntent);
     }
 
@@ -313,6 +314,7 @@ public class OverviewActivity extends AppCompatActivity
     public void startIntentRaceSchedule(RaceSchedule[] raceSchedules) {
         Intent raceScheduleIntent = new Intent(this, RaceScheduleActivity.class);
         raceScheduleIntent.putExtra("raceSchedule", raceSchedules);
+        raceScheduleIntent.putExtra("season", season);
         this.startActivity(raceScheduleIntent);
     }
 
@@ -320,6 +322,7 @@ public class OverviewActivity extends AppCompatActivity
     public void startIntentStandings(Standings[] standings) {
         Intent standingsIntent = new Intent(this, StandingsActivity.class);
         standingsIntent.putExtra("standings", standings);
+        standingsIntent.putExtra("season", season);
         this.startActivity(standingsIntent);
     }
 
@@ -327,6 +330,7 @@ public class OverviewActivity extends AppCompatActivity
     public void startIntentDrivers(Driver[] driver) {
         Intent driversIntent = new Intent(this, DriverActivity.class);
         driversIntent.putExtra("drivers", driver);
+        driversIntent.putExtra("season", season);
         this.startActivity(driversIntent);
     }
 }

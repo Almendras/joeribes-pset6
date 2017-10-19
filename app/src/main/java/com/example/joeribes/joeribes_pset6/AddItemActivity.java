@@ -28,6 +28,13 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, OverviewActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     // Creates a spinner with Items
     public void createSpinnerItems(ArrayList<String> items) {
         final Spinner spinItem = (Spinner) findViewById(R.id.item_spinner_select);
@@ -165,7 +172,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent driversIntent = new Intent(this, AdditemSecondActivity.class);
         driversIntent.putExtra("driversAdd", driver);
         driversIntent.putExtra("index", "4");
-        driversIntent.putExtra("season", season);
+        driversIntent.putExtra("season", selectedSeason);
         this.startActivity(driversIntent);
     }
 

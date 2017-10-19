@@ -1,6 +1,6 @@
 package com.example.joeribes.joeribes_pset6;
 
-import java.io.Serializable;
+        import java.io.Serializable;
 
 
 public class Driver implements Serializable {
@@ -32,7 +32,7 @@ public class Driver implements Serializable {
     public String getDriverNumber() {
         return driverNumber;
     }
-    
+
     // Retrieve the date of birth of the driver
     public String getDateOfBirth() {
         return dateOfBirth;

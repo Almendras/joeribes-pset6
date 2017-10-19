@@ -26,8 +26,7 @@ public class CreateUserActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseUser user;
     String email, password;
-    EditText emailInput;
-    EditText passwordInput;
+    EditText emailInput, passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +55,13 @@ public class CreateUserActivity extends AppCompatActivity {
                 // ...
             }
         };
+    }
+
+    public void goMain(View view) {
+        Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(mainIntent);
+        finish();
+
     }
 
     @Override
@@ -102,7 +108,7 @@ public class CreateUserActivity extends AppCompatActivity {
                         Log.d("create user", "createUserWithEmail:onComplete:" + task.isSuccessful());
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(CreateUserActivity.this, "Authentication failed.",
+                            Toast.makeText(CreateUserActivity.this, "Email not available for use",
                                     Toast.LENGTH_SHORT).show();
                         }
                         else {

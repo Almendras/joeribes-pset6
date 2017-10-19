@@ -35,6 +35,13 @@ public class DeleteItemActivity extends AppCompatActivity {
     ArrayList<String> items;
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, OverviewActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_item);
