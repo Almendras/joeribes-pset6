@@ -48,41 +48,9 @@ public class DriverResultsAsyncTaskAdd extends AsyncTask<String, Integer, String
                 String season= racesObj.getString("season");
                 String race_name= racesObj.getString("raceName");
 
-                JSONArray raceResultsObj = racesObj.getJSONArray("Results");
-                driverResults = new DriverResults[raceResultsObj.length()];
+                JSONArray raceResults = racesObj.getJSONArray("Results");
 
-                // Get all position data
-                for(int i = 0; i < raceResultsObj.length(); i++) {
-                    JSONObject raceResult = raceResultsObj.getJSONObject(i);
-
-                    // Position of the driver
-                    String position = raceResult.getString("position");
-
-                    // Retrieve the driver givenName and familyName
-                    JSONObject Driver = raceResult.getJSONObject("Driver");
-                    String givenName = Driver.getString("givenName");
-                    String familyName = Driver.getString("familyName");
-                    String driver = givenName + " " + familyName;
-
-                    // Retrieve the constructor
-                    JSONObject Constructor = raceResult.getJSONObject("Constructor");
-                    String constructor = Constructor.getString("name");
-
-                    // Status
-                    String status = raceResult.getString("status");
-
-                    // Time
-                    String time = " ";
-                    if(raceResult.has("Time")) {
-                        JSONObject Time = raceResult.getJSONObject("Time");
-                        time = Time.getString("time");
-                    }
-
-
-                    driverResults[i] = new DriverResults(race_name, season, driver, position, constructor, time, status);
-                }
-
-
+                driverResults = createDriverResultsArray(raceResults, season, race_name);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -91,4 +59,48 @@ public class DriverResultsAsyncTaskAdd extends AsyncTask<String, Integer, String
             this.addItemAct.startIntentDriverResults(driverResults);
         }
     }
+
+    private DriverResults[] createDriverResultsArray(JSONArray raceResults, String season, String race_name) {
+        driverResults = new DriverResults[raceResults.length()];
+
+        try {
+            // Get all position data
+            for(int i = 0; i < raceResults.length(); i++) {
+                JSONObject raceResult = raceResults.getJSONObject(i);
+
+                // Position of the driver
+                String position = raceResult.getString("position");
+
+                // Retrieve the driver givenName and familyName
+                JSONObject Driver = raceResult.getJSONObject("Driver");
+                String givenName = Driver.getString("givenName");
+                String familyName = Driver.getString("familyName");
+                String driver = givenName + " " + familyName;
+
+                // Retrieve the constructor
+                JSONObject Constructor = raceResult.getJSONObject("Constructor");
+                String constructor = Constructor.getString("name");
+
+                // Status
+                String status = raceResult.getString("status");
+
+                // Time
+                String time = " ";
+                if(raceResult.has("Time")) {
+                    JSONObject Time = raceResult.getJSONObject("Time");
+                    time = Time.getString("time");
+                }
+
+                driverResults[i] = new DriverResults(race_name, season, driver, position, constructor, time, status);
+            }
+
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
+
+        return driverResults;
+
+    }
+
+
 }
